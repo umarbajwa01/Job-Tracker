@@ -11,12 +11,7 @@ function SearchResults() {
   const salaryMin = searchParams.get('salaryMin')
   const salaryMax = searchParams.get('salaryMax')
 
-  const { data, isLoading, isError, error } = useJobSearch({
-    what,
-    where,
-    salaryMin,
-    salaryMax,
-  })
+  const { data, isLoading, isError, error } = useJobSearch({ what, where, salaryMin, salaryMax })
 
   const handleApplyFilters = ({ salaryMin, salaryMax }) => {
     const newParams = new URLSearchParams(searchParams)
@@ -28,25 +23,25 @@ function SearchResults() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-6 md:px-8 py-8 md:py-12">
-      <h1 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6">
-        {what ? `Results for "${what}"` : 'Search for jobs'}
-        {where && ` in ${where}`}
-      </h1>
+    <main className="pg-page py-10 md:py-14">
+      <div className="pg-shell">
+        <div className="mb-9 max-w-3xl">
+          <span className="pg-eyebrow mb-4 bg-pink/30">Search results</span>
+          <h1 className="font-display text-4xl font-extrabold md:text-5xl">
+            {what ? <>Jobs for <span className="text-violet">“{what}”</span></> : 'Search for jobs'}
+          </h1>
+          {where && <p className="mt-3 font-semibold text-stone">Location: {where}</p>}
+        </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
-        <FilterSidebar
-          onApply={handleApplyFilters}
-          initialSalaryMin={salaryMin}
-          initialSalaryMax={salaryMax}
-        />
-
-        <div className="flex-1">
-          {isError && <ErrorMessage message={error.message} />}
-          {!isError && <JobList jobs={data?.data || []} isLoading={isLoading} />}
+        <div className="flex flex-col gap-8 md:flex-row">
+          <FilterSidebar onApply={handleApplyFilters} initialSalaryMin={salaryMin} initialSalaryMax={salaryMax} />
+          <div className="min-w-0 flex-1">
+            {isError && <ErrorMessage message={error.message} />}
+            {!isError && <JobList jobs={data?.data || []} isLoading={isLoading} />}
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 

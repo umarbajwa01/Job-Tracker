@@ -1,8 +1,9 @@
 function EmptyState({ title, message }) {
   return (
-    <div className="text-center py-16">
-      <h3 className="text-lg font-medium text-gray-900 mb-1">{title}</h3>
-      <p className="text-gray-500">{message}</p>
+    <div className="pg-card px-6 py-14 text-center">
+      <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full border-2 border-ink bg-yellow text-2xl shadow-[3px_3px_0_#1E293B]" aria-hidden="true">?</div>
+      <h3 className="font-display text-xl font-extrabold">{title}</h3>
+      <p className="mt-2 text-sm font-medium text-stone">{message}</p>
     </div>
   )
 }

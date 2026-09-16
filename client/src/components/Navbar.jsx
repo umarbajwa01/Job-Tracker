@@ -14,68 +14,60 @@ function Navbar() {
   }
 
   return (
-    <nav className="bg-cream border-b border-sand">
-      <div className="flex items-center justify-between px-6 md:px-8 py-4">
-        <Link to="/" className="group inline-flex items-center gap-2.5 text-gray-950" aria-label="Job Finder home">
-          <span className="grid h-8 w-8 place-items-center rounded-sm bg-ink font-logo text-lg font-bold leading-none text-white shadow-sm transition-transform duration-200 group-hover:-rotate-3">
+    <nav className="sticky top-0 z-50 border-b-2 border-ink bg-cream/95 backdrop-blur">
+      <div className="pg-shell flex min-h-[72px] items-center justify-between gap-5">
+        <Link to="/" className="group inline-flex items-center gap-2.5" aria-label="Job Tracker home">
+          <span className="grid h-10 w-10 place-items-center rounded-full border-2 border-ink bg-violet font-display text-xl font-extrabold text-white shadow-[3px_3px_0_#1E293B] transition-transform duration-200 group-hover:-rotate-6">
             J
           </span>
-          <span className="font-logo text-[1.55rem] font-bold leading-none tracking-[-0.04em]">
-            Job<span className="text-gold">Finder</span>
+          <span className="font-display text-[1.45rem] font-extrabold tracking-[-0.04em]">
+            Job<span className="text-violet">Tracker</span>
           </span>
         </Link>
 
-        {/* Desktop links — hidden below md breakpoint */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link to="/" className="text-gray-600 hover:text-gray-900">Home</Link>
-          <Link to="/saved-jobs" className="text-gray-600 hover:text-gray-900">Saved Jobs</Link>
+        <div className="hidden md:flex items-center gap-2">
+          <Link to="/" className="rounded-full px-4 py-2 font-bold hover:bg-yellow">Home</Link>
+          <Link to="/saved-jobs" className="rounded-full px-4 py-2 font-bold hover:bg-pink/30">Saved Jobs</Link>
           {user ? (
             <>
-              <span className="text-gray-600 text-sm">Hi, {user.name}</span>
-              <button onClick={handleLogout} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
-                Log Out
-              </button>
+              <span className="mx-2 text-sm font-semibold text-stone">Hi, {user.name}</span>
+              <button onClick={handleLogout} className="pg-button-secondary min-h-[42px] px-4 py-2 text-sm">Log Out</button>
             </>
           ) : (
             <>
-              <Link to="/login" className="text-gray-600 hover:text-gray-900">Log In</Link>
-              <Link to="/register" className="px-4 py-2 bg-ink text-white rounded-lg hover:bg-forest-light">
-                Sign Up
-              </Link>
+              <Link to="/login" className="rounded-full px-4 py-2 font-bold hover:bg-muted">Log In</Link>
+              <Link to="/register" className="pg-button min-h-[42px] px-5 py-2 text-sm">Sign Up <span aria-hidden="true">→</span></Link>
             </>
           )}
         </div>
 
-        {/* Hamburger button — only visible below md breakpoint */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-gray-700"
+          className="grid h-11 w-11 place-items-center rounded-full border-2 border-ink bg-white font-bold shadow-[2px_2px_0_#1E293B] md:hidden"
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
           {menuOpen ? '✕' : '☰'}
         </button>
       </div>
 
-      {/* Mobile dropdown menu */}
       {menuOpen && (
-        <div className="md:hidden flex flex-col gap-4 px-6 py-4 border-t border-gray-200">
-          <Link to="/" onClick={() => setMenuOpen(false)} className="text-gray-600">Home</Link>
-          <Link to="/saved-jobs" onClick={() => setMenuOpen(false)} className="text-gray-600">Saved Jobs</Link>
-          {user ? (
-            <>
-              <span className="text-gray-600 text-sm">Hi, {user.name}</span>
-              <button onClick={handleLogout} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-left">
-                Log Out
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" onClick={() => setMenuOpen(false)} className="text-gray-600">Log In</Link>
-              <Link to="/register" onClick={() => setMenuOpen(false)} className="px-4 py-2 bg-ink text-white rounded-lg text-center hover:bg-forest-light">
-                Sign Up
-              </Link>
-            </>
-          )}
+        <div className="border-t-2 border-ink bg-white px-5 py-5 md:hidden">
+          <div className="pg-shell flex flex-col gap-3">
+            <Link to="/" onClick={() => setMenuOpen(false)} className="font-bold">Home</Link>
+            <Link to="/saved-jobs" onClick={() => setMenuOpen(false)} className="font-bold">Saved Jobs</Link>
+            {user ? (
+              <>
+                <span className="text-sm text-stone">Hi, {user.name}</span>
+                <button onClick={handleLogout} className="pg-button-secondary w-full">Log Out</button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" onClick={() => setMenuOpen(false)} className="font-bold">Log In</Link>
+                <Link to="/register" onClick={() => setMenuOpen(false)} className="pg-button w-full">Sign Up →</Link>
+              </>
+            )}
+          </div>
         </div>
       )}
     </nav>
